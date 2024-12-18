@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Movie Recommendation</h1>
+        <p>Select a movie genre to get a recommendation:</p>
+        <select id="genreSelect">
+            <option value="action">Action</option>
+            <option value="comedy">Comedy</option>
+            <option value="drama">Drama</option>
+            <option value="horror">Horror</option>
+            <option value="sci-fi">Sci-Fi</option>
+        </select>
+        <button id="recommendBtn">Get Recommendation</button>
+        <div id="movieRecommendation" class="recommendation"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    text-align: center;
+    padding: 50px;
+}
+
+h1 {
+    font-size: 36px;
+    color: #333;
+}
+
+select {
+    padding: 10px;
+    font-size: 16px;
+    margin: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.recommendation {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+document.getElementById('recommendBtn').addEventListener('click', function() {
+    const genre = document.getElementById('genreSelect').value;
+    const recommendation = getMovieRecommendation(genre);
+    document.getElementById('movieRecommendation').textContent = `Recommended Movie: ${recommendation}`;
+});
+
+function getMovieRecommendation(genre) {
+    const movieDatabase = {
+        action: ['Mad Max: Fury Road', 'John Wick', 'Die Hard'],
+        comedy: ['The Hangover', 'Superbad', '21 Jump Street'],
+        drama: ['The Shawshank Redemption', 'Forrest Gump', 'The Godfather'],
+        horror: ['The Conjuring', 'A Nightmare on Elm Street', 'It'],
+        'sci-fi': ['Inception', 'The Matrix', 'Blade Runner']
+    };
+
+    const movies = movieDatabase[genre] || [];
+    return movies[Math.floor(Math.random() * movies.length)];
+}
